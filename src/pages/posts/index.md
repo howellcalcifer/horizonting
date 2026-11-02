@@ -1,5 +1,5 @@
 ---
-title: Using Decap CMS with an Astro site
+title: Hello world
 publishDate: 16 May 2022
 author: Advanced Astro
 authorURL: https://advanced-astro.dev
