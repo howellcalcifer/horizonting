@@ -1,3 +1,9 @@
 {
-  "articles": ["test"]
+  "articles": [
+    "hygiene",
+    "aids",
+    "toileting",
+    "routine",
+    "test"
+  ]
 }
