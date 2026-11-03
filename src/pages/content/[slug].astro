@@ -1,0 +1,22 @@
+---
+export function getStaticPaths() {
+	const pages = import.meta.glob('../../content/page/*.md', { eager: true });
+
+	return Object.entries(pages).map(([path, page]) => {
+		const fileName = path.split('/').pop();
+		if (!fileName) {
+			throw new Error(`Could not determine slug for Markdown file: ${path}`);
+		}
+
+		return {
+			params: { slug: fileName.replace(/\.md$/, '') },
+			props: { page },
+		};
+	});
+}
+
+const { page } = Astro.props;
+const { Content } = page;
+---
+
+<Content />
