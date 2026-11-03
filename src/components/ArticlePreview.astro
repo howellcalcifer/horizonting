@@ -1,18 +1,18 @@
 ---
 export interface Props {
-	post: any;
+	article: any;
 }
 
-const { post } = Astro.props;
+const { article } = Astro.props;
 ---
 
-<article class="post-preview">
+<article class="article-preview">
 	<header>
-		<p class="publish-date">{post.frontmatter.date}</p>
-		<a href={post.url}><h1 class="title">{post.frontmatter.title}</h1></a>
+		<p class="publish-date">{article.pubDate}</p>
+		<a href={`/articles/${article.id}`}><h1 class="title">{article.data.title}</h1></a>
 	</header>
-	<p>{post.frontmatter.description}</p>
-	<a href={post.url}>Read more</a>
+	<p>{article.data.description}</p>
+	<a href={`/articles/${article.id}`}>Read more</a>
 </article>
 
 <style>
@@ -20,7 +20,7 @@ const { post } = Astro.props;
 		margin-top: 1rem;
 	}
 
-	.post-preview {
+	.article-preview {
 		padding-bottom: 2rem;
 		margin-bottom: 2rem;
 		border-bottom: 4px solid var(--theme-divider);

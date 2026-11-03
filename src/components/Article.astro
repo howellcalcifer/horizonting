@@ -1,18 +1,16 @@
 ---
 export interface Props {
 	title: string;
-	date: string;
-	alt: string;
+	pubDate: string;
 }
 
-const { title, date } = Astro.props as Props;
+const { title, pubDate } = Astro.props as Props;
 ---
 
 <div class="layout">
 	<article class="content">
 		<div>
 			<header>
-				<p class="publish-date">{date}</p>
 				<h1 class="title">{title}</h1>
 			</header>
 			<main>
