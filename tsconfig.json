@@ -1,8 +1,10 @@
 {
   "extends": "astro/tsconfigs/base",
-  // not needed for `strict` or `strictest`
   "compilerOptions": {
     "strictNullChecks": true,
     "allowJs": true
-  }
+  },
+  "include": [
+    "./worker-configuration.d.ts"
+  ]
 }

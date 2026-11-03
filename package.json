@@ -6,12 +6,15 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
-    "preview": "astro preview"
+    "preview": "astro preview",
+    "generate-types": "wrangler types"
   },
   "devDependencies": {
     "astro": "7.4.5"
   },
   "dependencies": {
-    "decap-cms-app": "^3.17.3"
+    "@astrojs/cloudflare": "^14.4.4",
+    "decap-cms-app": "^3.17.3",
+    "wrangler": "^4.157.0"
   }
 }
