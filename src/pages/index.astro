@@ -15,7 +15,7 @@ let permalink = 'https://horizonting.org/';
 
 // Data Fetching: List all Markdown posts in the repo.
 
-let allPosts = await Astro.glob('../content/page/*.md');
+let allPosts = await Astro.glob('./content/*.md');
 allPosts = allPosts.map((post) => {
 	const fileName = post.file.split('/').pop();
 	if (!fileName) {
