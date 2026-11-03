@@ -4,22 +4,18 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import ArticlePreview from '../components/ArticlePreview.astro';
 import { SITE } from '../config';
-import { getCollection, getEntry } from 'astro:content';
+import { getCollection } from 'astro:content';
 
 // Component Script:
 // You can write any JavaScript/TypeScript that you'd like here.
 // It will run during the build, but never in the browser.
 // All variables are available to use in the HTML template below.
-const { title } = SITE;
-const description = 'Help to care for someone with severe M.E.';
+const { title, description } = SITE;
 const permalink = 'https://horizonting.me/';
 
-// Data Fetching: List all Markdown posts in the repo.
-
-
-const allArticles = (await getCollection('articles')).sort(	(a, b) =>
-		new Date(b.frontmatter.date ?? b.frontmatter.publishDate).valueOf() -
-		new Date(a.frontmatter.date ?? a.frontmatter.publishDate).valueOf(),);
+const allArticles = (await getCollection('articles')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
 
 
 // Full Astro Component Syntax:
@@ -31,17 +27,8 @@ const allArticles = (await getCollection('articles')).sort(	(a, b) =>
 		<BaseHead {title} {description} {permalink} />
 
 		<style>
-			header {
-				width: 100%;
-				height: 100%;
-				background-color: var(--theme-bg-offset);
-				display: flex;
-				align-items: center;
-				justify-content: center;
-			}
-
 			.content {
-				margin-top: 4rem;
+				margin-top: 2rem;
 				margin-bottom: 8rem;
 			}
 
@@ -49,24 +36,18 @@ const allArticles = (await getCollection('articles')).sort(	(a, b) =>
 				margin-top: 1rem;
 			}
 
-			.intro {
-				padding-bottom: 4rem;
-				margin-bottom: 2rem;
-				border-bottom: 4px solid var(--theme-divider);
+			.article-list {
+				display: grid;
+				grid-template-columns: repeat(2, minmax(0, 1fr));
+				gap: 2rem;
 			}
 
-			.intro > * {
-				margin: 0;
+			@media (max-width: 48em) {
+				.article-list {
+					grid-template-columns: 1fr;
+				}
 			}
 
-			.latest {
-				font-size: 2.5rem;
-				font-weight: 700;
-			}
-
-			footer {
-				text-align: center;
-			}
 		</style>
 	</head>
 
@@ -74,11 +55,7 @@ const allArticles = (await getCollection('articles')).sort(	(a, b) =>
 		<Header />
 		<div class="wrapper">
 			<main class="content">
-				<section class="intro">
-					<h1 class="latest">{title}</h1>
-					<p>{description}</p>
-				</section>
-				<section aria-label="Post list">
+				<section class="article-list" aria-label="Article list">
 					{allArticles.map((a) => <ArticlePreview article={a} />)}
 				</section>
 			</main>

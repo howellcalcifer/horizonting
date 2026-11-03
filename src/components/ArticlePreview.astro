@@ -1,29 +1,47 @@
 ---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+
 export interface Props {
-	article: any;
+	article: CollectionEntry<'articles'>;
 }
 
 const { article } = Astro.props;
+const articleUrl = `/articles/${article.id}`;
 ---
 
 <article class="article-preview">
-	<header>
-		<p class="publish-date">{article.pubDate}</p>
-		<a href={`/articles/${article.id}`}><h1 class="title">{article.data.title}</h1></a>
-	</header>
-	<p>{article.data.description}</p>
-	<a href={`/articles/${article.id}`}>Read more</a>
+	{article.data.icon && (
+		<Image class="icon" src={article.data.icon} alt="" />
+	)}
+	<div class="preview-content">
+		<header>
+			<a href={articleUrl}><h2 class="title">{article.data.title}</h2></a>
+		</header>
+		<p>{article.data.description}</p>
+		<a href={articleUrl}>Read more</a>
+	</div>
 </article>
 
 <style>
-	.content :global(main > * + *) {
-		margin-top: 1rem;
+	.article-preview {
+		display: flex;
+		align-items: flex-start;
+		gap: 1rem;
+		min-width: 0;
+		padding-bottom: 2rem;
+		border-bottom: 4px solid var(--theme-divider);
 	}
 
-	.article-preview {
-		padding-bottom: 2rem;
-		margin-bottom: 2rem;
-		border-bottom: 4px solid var(--theme-divider);
+	.icon {
+		width: clamp(3rem, 20%, 6rem);
+		height: auto;
+		flex: 0 0 auto;
+		object-fit: contain;
+	}
+
+	.preview-content {
+		min-width: 0;
 	}
 
 	header {
@@ -35,20 +53,12 @@ const { article } = Astro.props;
 		text-align: left;
 	}
 
-	.title,
-	.author,
-	.publish-date {
+	.title {
 		margin: 0;
 	}
 
-	.publish-date,
-	.author {
-		font-size: 1.25rem;
-		color: var(--theme-text-lighter);
-	}
-
 	.title {
-		font-size: 2.25rem;
+		font-size: 1.5rem;
 		font-weight: 700;
 		color: var(--theme-text);
 	}
