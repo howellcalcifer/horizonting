@@ -5,6 +5,7 @@ import Header from '../components/Header.astro';
 import ArticlePreview from '../components/ArticlePreview.astro';
 import { SITE } from '../config';
 import { getCollection } from 'astro:content';
+import articleOrder from '../data/article-order.json';
 
 // Component Script:
 // You can write any JavaScript/TypeScript that you'd like here.
@@ -13,9 +14,13 @@ import { getCollection } from 'astro:content';
 const { title, description } = SITE;
 const permalink = 'https://horizonting.me/';
 
-const allArticles = (await getCollection('articles')).sort(
-	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
+const articlePositions = new Map(articleOrder.articles.map((id, index) => [id, index]));
+const allArticles = (await getCollection('articles')).sort((a, b) => {
+	const aPosition = articlePositions.get(a.id) ?? Number.POSITIVE_INFINITY;
+	const bPosition = articlePositions.get(b.id) ?? Number.POSITIVE_INFINITY;
+
+	return aPosition - bPosition || a.id.localeCompare(b.id);
+});
 
 
 // Full Astro Component Syntax:

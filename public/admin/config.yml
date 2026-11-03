@@ -12,5 +12,24 @@ collections:
       - { label: "Publish Date", name: "pubDate", widget: "datetime" }
       - { label: "Icon", name: "icon", widget: "image", required: false, media_library: { allow_multiple: false }}
       - { label: "Body", name: "body", widget: "markdown" }
+  - name: "article_order"
+    label: "Article order"
+    files:
+      - name: "index"
+        label: "Index page order"
+        file: "src/data/article-order.json"
+        fields:
+          - label: "Articles"
+            name: "articles"
+            widget: "list"
+            summary: "{{fields.article}}"
+            field:
+              label: "Article"
+              name: "article"
+              widget: "relation"
+              collection: "article"
+              search_fields: ["title"]
+              value_field: "{{slug}}"
+              display_fields: ["title"]
 media_folder: "src/assets/images" # Location where files will be stored in the repo
 public_folder: "../../assets/images" # Article-relative path stored in frontmatter for Astro
