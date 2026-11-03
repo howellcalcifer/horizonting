@@ -9,6 +9,7 @@
     "preview": "astro preview",
     "generate-types": "wrangler types"
   },
+  "packageManager": "pnpm@12.16.1",
   "devDependencies": {
     "astro": "7.4.5"
   },
