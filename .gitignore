@@ -16,6 +16,7 @@ pnpm-debug.log*
 .env.production
 
 .astro
+.wrangler
 
 # macOS-specific files
 .DS_Store
