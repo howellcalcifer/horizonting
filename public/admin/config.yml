@@ -2,8 +2,7 @@ backend:
   name: github
   repo: howellcalcifer/horizonting
   branch: main
-  base_url: https://horizonting.me
-  auth_endpoint: /api/decap-auth
+  base_url: https://sveltia-cms-auth.richtbiscuit.workers.dev
 collections:
   - name: "article" # Used in routes, e.g., /admin/collections/blog
     label: "Article" # Used in the UI
@@ -37,4 +36,4 @@ collections:
               display_fields: ["title"]
               options_length: 100
 media_folder: "src/assets/images" # Location where files will be stored in the repo
-public_folder: "../../assets/images" # Article-relative path stored in frontmatter for Astro
+public_folder: "/src/assets/images" # Article-relative path stored in frontmatter for Astro
