@@ -1,16 +1,19 @@
 import type { APIRoute } from 'astro';
+import { env } from 'cloudflare:workers'; // Import env directly
 
-export const prerender = false; // Ensures this endpoint runs dynamically on Cloudflare
+export const prerender = false;
 
-export const GET: APIRoute = async ({ request, locals }) => {
+export const GET: APIRoute = async ({ request }) => {
   const url = new URL(request.url);
   const code = url.searchParams.get('code');
 
-  // Environment variables from Cloudflare context or process.env
-  const runtime = (locals as any).runtime;
-  const GITHUB_TOKEN = runtime?.env?.GITHUB_TOKEN || process.env.GITHUB_TOKEN;
+  // Access GITHUB_TOKEN directly from Cloudflare workers env
+  const GITHUB_TOKEN = env.GITHUB_TOKEN || process.env.GITHUB_TOKEN;
 
-  // Handle post-login handshake for Decap CMS
+  if (!GITHUB_TOKEN) {
+    return new Response('Missing GITHUB_TOKEN environment variable', { status: 500 });
+  }
+
   if (code) {
     const postMessageContent = `authorization:github:success:${JSON.stringify({
       token: GITHUB_TOKEN,
@@ -42,6 +45,5 @@ export const GET: APIRoute = async ({ request, locals }) => {
     });
   }
 
-  // Initial redirect from Decap CMS login button
   return Response.redirect(`${url.origin}/api/decap-auth?code=authenticated`, 302);
 };
