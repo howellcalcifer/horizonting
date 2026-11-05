@@ -59,6 +59,7 @@ import { SITE } from '../config';
 		max-width: 100%;
 		display: flex;
 		flex-grow: 1;
+		min-width: 0;
 	}
 
 	.logo {
@@ -76,13 +77,16 @@ import { SITE } from '../config';
 
 	h1 a {
 		text-decoration: none;
-		display: inline-flex;
-		align-items: flex-end;
+		display: flex;
+		align-items: center;
+		width: 100%;
+		min-width: 0;
 	}
 
 	.branding {
 		display: flex;
 		flex-direction: column;
+		min-width: 0;
 	}
 
 	.description {
@@ -90,5 +94,36 @@ import { SITE } from '../config';
 		font-size: 2rem;
 		font-weight: 400;
 		line-height: 1.4;
+		overflow-wrap: anywhere;
+	}
+
+	@media (max-width: 50em) {
+		h1 {
+			font-size: 2.5rem;
+		}
+
+		.logo {
+			width: 6rem;
+			margin-right: 1rem;
+		}
+
+		.description {
+			font-size: 1.5rem;
+		}
+	}
+
+	@media (max-width: 32em) {
+		h1 {
+			font-size: 2rem;
+		}
+
+		.logo {
+			width: 4.5rem;
+			margin-right: 0.75rem;
+		}
+
+		.description {
+			font-size: 1.25rem;
+		}
 	}
 </style>

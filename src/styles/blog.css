@@ -88,6 +88,10 @@ body {
 	body {
 		font-size: 1.0625rem;
 	}
+
+	.wrapper {
+		padding-inline: 1rem;
+	}
 }
 
 .wrapper {
