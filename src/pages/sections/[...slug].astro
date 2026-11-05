@@ -17,9 +17,9 @@ const { section } = Astro.props;
 const { Content } = await render(section);
 const sectionTipSlugs = section.data.tips ?? [];
 const allTips = sectionTipSlugs.length > 0 ? await getCollection('tips') : [];
-const tipsBySlug = new Map(allTips.map((tip) => [tip.slug, tip]));
+const tipsById = new Map(allTips.map((tip) => [tip.id, tip]));
 const tips = sectionTipSlugs.map((slug) => {
-	const tip = tipsBySlug.get(slug);
+	const tip = tipsById.get(slug);
 	if (!tip) {
 		throw new Error(`Section "${section.id}" references missing tip "${slug}"`);
 	}

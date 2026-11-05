@@ -3,7 +3,7 @@ import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
 import Section from '../components/Section.astro';
 
-const { title, description, pubDate, alt, lang, permalink } = Astro.props;
+const { title, description, pubDate, alt, lang, permalink, tips } = Astro.props;
 ---
 
 <html lang={lang || 'en'}>
@@ -14,7 +14,7 @@ const { title, description, pubDate, alt, lang, permalink } = Astro.props;
 	<body>
 		<Header />
 		<div class="wrapper">
-			<Section {title} {pubDate} {alt}>
+			<Section {title} {pubDate} {alt} {tips}>
 				<slot />
 			</Section>
 		</div>

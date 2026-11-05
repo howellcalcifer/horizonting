@@ -18,14 +18,14 @@ const { title, pubDate, tips = [] } = Astro.props as Props;
 				<h1 class="title">{title}</h1>
 			</header>
 			<main>
+				{tips.length > 0 && (
+					<section class="tips" aria-labelledby="tips-heading">
+						{tips.map((tip) => <Tip {tip} />)}
+					</section>
+				)}
 				<slot />
 			</main>
-			{tips.length > 0 && (
-				<section class="tips" aria-labelledby="tips-heading">
-					<h2 id="tips-heading">Tips</h2>
-					{tips.map((tip) => <Tip {tip} />)}
-				</section>
-			)}
+
 		</div>
 	</section>
 </div>
