@@ -1,9 +1,22 @@
 {
   "articles": [
     "hygiene",
-    "aids",
     "toileting",
+    "aids",
     "routine",
-    "temperature-control"
+    "temperature-control",
+    "light",
+    "sound",
+    "movement",
+    "fragrances",
+    "positioning",
+    "reaching-things",
+    "communication",
+    "food",
+    "drink",
+    "medication",
+    "infection",
+    "pollution",
+    "emotion"
   ]
 }
