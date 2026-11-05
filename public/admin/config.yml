@@ -6,14 +6,33 @@ backend:
 collections:
   - name: "section" # Used in routes, e.g., /admin/collections/blog
     label: "Section" # Used in the UI
+    file: "src/data/section-tips-order.json"
     folder: "src/content/sections" # The path to the folder where the documents are stored
     create: true # Allow users to create new documents in this collection
     fields: # The fields for each document, usually in frontmatter
       - { label: "Layout", name: "layout", widget: "hidden", default: "../../layouts/Section.astro" }
       - { label: "Title", name: "title", widget: "string" }
+      - { label: "Tips", name: "tips", widget: "list", summary: "{{fields.tip}}", field: { label: "Tip", name: "tip", widget: "relation", collection: "tip", search_fields: ["title"], value_field: "{{slug}}", display_fields: ["title"] } }
       - { label: "Publish Date", name: "pubDate", widget: "datetime" }
       - { label: "Icon", name: "icon", widget: "image", required: false, media_library: { allow_multiple: false }}
       - { label: "Body", name: "body", widget: "markdown" }
+  - name: "case_study" # Used in routes, e.g., /admin/collections/blog
+    label: "Case Study" # Used in the UI
+    folder: "src/content/case-studies" # The path to the folder where the documents are stored
+    create: true # Allow users to create new documents in this collection
+    fields: # The fields for each document, usually in frontmatter
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Publish Date", name: "pubDate", widget: "datetime" }
+      - { label: "Body", name: "body", widget: "markdown" }
+  - name: "tip" # Used in routes, e.g., /admin/collections/blog
+    label: "Tip" # Used in the UI
+    folder: "src/content/tips" # The path to the folder where the documents are stored
+    create: true # Allow users to create new documents in this collection
+    fields: # The fields for each document, usually in frontmatter
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Publish Date", name: "pubDate", widget: "datetime" }
+      - { label: "Body", name: "body", widget: "markdown" }
+      - { label: "Case study", name: "caseStudy", widget: "relation", collection: "case_study", search_fields: ["title"], value_field: "{{slug}}", display_fields: ["title"] }
   - name: "section_order"
     label: "Section order"
     files:

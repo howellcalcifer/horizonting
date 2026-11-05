@@ -1,10 +1,14 @@
 ---
+import type { CollectionEntry } from 'astro:content';
+import Tip from './Tip.astro';
+
 export interface Props {
 	title: string;
-	pubDate: string;
+	pubDate: Date;
+	tips: CollectionEntry<'tips'>[];
 }
 
-const { title, pubDate } = Astro.props as Props;
+const { title, pubDate, tips = [] } = Astro.props as Props;
 ---
 
 <div class="layout">
@@ -16,6 +20,12 @@ const { title, pubDate } = Astro.props as Props;
 			<main>
 				<slot />
 			</main>
+			{tips.length > 0 && (
+				<section class="tips" aria-labelledby="tips-heading">
+					<h2 id="tips-heading">Tips</h2>
+					{tips.map((tip) => <Tip {tip} />)}
+				</section>
+			)}
 		</div>
 	</section>
 </div>
@@ -40,6 +50,14 @@ const { title, pubDate } = Astro.props as Props;
 
 	.content {
 		margin-bottom: 8rem;
+	}
+
+	.tips {
+		margin-top: 4rem;
+	}
+
+	.tips :global(.tip + .tip) {
+		margin-top: 2rem;
 	}
 
 	.content :global(main > * + *) {

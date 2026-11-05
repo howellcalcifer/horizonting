@@ -1,0 +1,21 @@
+---
+import { type CollectionEntry, render } from 'astro:content';
+
+interface Props {
+	tip: CollectionEntry<'tips'>;
+}
+
+const { tip } = Astro.props;
+const { Content } = await render(tip);
+---
+
+<article class="tip">
+	<h3>{tip.data.title}</h3>
+	<Content />
+</article>
+
+<style>
+	.tip {
+		min-width: 0;
+	}
+</style>
