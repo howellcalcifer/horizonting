@@ -69,13 +69,12 @@ const { title, pubDate, tips = [] } = Astro.props as Props;
 	header {
 		display: flex;
 		flex-direction: column;
-		text-align: center;
-		align-items: center;
-		justify-content: center;
+		text-align: left;
+		align-items: flex-start;
 
-		padding-bottom: 2rem;
-		margin-bottom: 2rem;
-		border-bottom: 4px solid var(--theme-divider);
+		padding-bottom: 0.75rem;
+		margin-bottom: 1.5rem;
+		border-bottom: 2px solid var(--theme-divider);
 	}
 
 	.title,

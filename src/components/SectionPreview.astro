@@ -10,18 +10,17 @@ const { section } = Astro.props;
 const sectionUrl = `/sections/${section.id}`;
 ---
 
-<section class="section-preview">
+<a class="section-preview" href={sectionUrl}>
 	{section.data.icon && (
 		<Image class="icon" src={section.data.icon} alt="" />
 	)}
 	<div class="preview-content">
 		<header>
-			<a href={sectionUrl}><h2 class="title">{section.data.title}</h2></a>
+			<h2 class="title">{section.data.title}</h2>
 		</header>
 		<p>{section.data.description}</p>
-		<a href={sectionUrl}>Read more</a>
 	</div>
-</section>
+</a>
 
 <style>
 	.section-preview {
@@ -31,10 +30,22 @@ const sectionUrl = `/sections/${section.id}`;
 		min-width: 0;
 		padding-bottom: 2rem;
 		border-bottom: 4px solid var(--theme-divider);
+		color: inherit;
+		text-decoration: none;
+	}
+
+	.section-preview:hover .title,
+	.section-preview:focus-visible .title {
+		text-decoration: underline;
+	}
+
+	.section-preview:focus-visible {
+		outline: 2px solid var(--theme-accent);
+		outline-offset: 0.25rem;
 	}
 
 	.icon {
-		width: clamp(3rem, 20%, 6rem);
+		width: clamp(2.5rem, 16%, 5rem);
 		height: auto;
 		flex: 0 0 auto;
 		object-fit: contain;
@@ -58,7 +69,7 @@ const sectionUrl = `/sections/${section.id}`;
 	}
 
 	.title {
-		font-size: 1.5rem;
+		font-size: 1.75rem;
 		font-weight: 700;
 		color: var(--theme-text);
 	}
