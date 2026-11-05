@@ -4,36 +4,36 @@ backend:
   branch: main
   base_url: https://sveltia-cms-auth.richtbiscuit.workers.dev
 collections:
-  - name: "article" # Used in routes, e.g., /admin/collections/blog
-    label: "Article" # Used in the UI
-    folder: "src/content/articles" # The path to the folder where the documents are stored
+  - name: "section" # Used in routes, e.g., /admin/collections/blog
+    label: "Section" # Used in the UI
+    folder: "src/content/sections" # The path to the folder where the documents are stored
     create: true # Allow users to create new documents in this collection
     fields: # The fields for each document, usually in frontmatter
-      - { label: "Layout", name: "layout", widget: "hidden", default: "../../layouts/ContentPost.astro" }
+      - { label: "Layout", name: "layout", widget: "hidden", default: "../../layouts/Section.astro" }
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Publish Date", name: "pubDate", widget: "datetime" }
       - { label: "Icon", name: "icon", widget: "image", required: false, media_library: { allow_multiple: false }}
       - { label: "Body", name: "body", widget: "markdown" }
-  - name: "article_order"
-    label: "Article order"
+  - name: "section_order"
+    label: "Section order"
     files:
       - name: "index"
         label: "Index page order"
-        file: "src/data/article-order.json"
+        file: "src/data/section-order.json"
         fields:
-          - label: "Articles"
-            name: "articles"
+          - label: "Sections"
+            name: "sections"
             widget: "list"
-            summary: "{{fields.article}}"
-            hint: "Search for saved articles by title. If a newly saved article is missing, refresh the admin page and try again."
+            summary: "{{fields.section}}"
+            hint: "Search for saved sections by title. If a newly saved section is missing, refresh the admin page and try again."
             field:
-              label: "Article"
-              name: "article"
+              label: "Section"
+              name: "section"
               widget: "relation"
-              collection: "article"
+              collection: "section"
               search_fields: ["title"]
               value_field: "{{slug}}"
               display_fields: ["title"]
               options_length: 100
 media_folder: "src/assets/images" # Location where files will be stored in the repo
-public_folder: "/src/assets/images" # Article-relative path stored in frontmatter for Astro
+public_folder: "/src/assets/images" # Section-relative path stored in frontmatter for Astro

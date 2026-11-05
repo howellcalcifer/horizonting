@@ -3,28 +3,28 @@ import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 
 export interface Props {
-	article: CollectionEntry<'articles'>;
+	section: CollectionEntry<'sections'>;
 }
 
-const { article } = Astro.props;
-const articleUrl = `/articles/${article.id}`;
+const { section } = Astro.props;
+const sectionUrl = `/sections/${section.id}`;
 ---
 
-<article class="article-preview">
-	{article.data.icon && (
-		<Image class="icon" src={article.data.icon} alt="" />
+<section class="section-preview">
+	{section.data.icon && (
+		<Image class="icon" src={section.data.icon} alt="" />
 	)}
 	<div class="preview-content">
 		<header>
-			<a href={articleUrl}><h2 class="title">{article.data.title}</h2></a>
+			<a href={sectionUrl}><h2 class="title">{section.data.title}</h2></a>
 		</header>
-		<p>{article.data.description}</p>
-		<a href={articleUrl}>Read more</a>
+		<p>{section.data.description}</p>
+		<a href={sectionUrl}>Read more</a>
 	</div>
-</article>
+</section>
 
 <style>
-	.article-preview {
+	.section-preview {
 		display: flex;
 		align-items: flex-start;
 		gap: 1rem;

@@ -1,0 +1,22 @@
+---
+import { type CollectionEntry, getCollection, render } from 'astro:content';
+import Section from '../../layouts/Section.astro';
+
+export async function getStaticPaths() {
+	const sections = await getCollection('sections');
+	return sections.map((section) => ({
+		params: { slug: section.id },
+		props: { section },
+	}));
+}
+type Props = {
+	section: CollectionEntry<'sections'>;
+};
+
+const { section } = Astro.props;
+const { Content } = await render(section);
+---
+
+<Section {...section.data}>
+	<Content />
+</Section>

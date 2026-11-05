@@ -2,10 +2,10 @@
 // Component Imports
 import BaseHead from '../components/BaseHead.astro';
 import Header from '../components/Header.astro';
-import ArticlePreview from '../components/ArticlePreview.astro';
+import SectionPreview from '../components/SectionPreview.astro';
 import { SITE } from '../config';
 import { getCollection } from 'astro:content';
-import articleOrder from '../data/article-order.json';
+import sectionOrder from '../data/section-order.json';
 
 // Component Script:
 // You can write any JavaScript/TypeScript that you'd like here.
@@ -14,10 +14,10 @@ import articleOrder from '../data/article-order.json';
 const { title, description } = SITE;
 const permalink = 'https://horizonting.me/';
 
-const articlePositions = new Map(articleOrder.articles.map((id, index) => [id, index]));
-const allArticles = (await getCollection('articles')).sort((a, b) => {
-	const aPosition = articlePositions.get(a.id) ?? Number.POSITIVE_INFINITY;
-	const bPosition = articlePositions.get(b.id) ?? Number.POSITIVE_INFINITY;
+const sectionPositions = new Map(sectionOrder.sections.map((id, index) => [id, index]));
+const allSections = (await getCollection('sections')).sort((a, b) => {
+	const aPosition = sectionPositions.get(a.id) ?? Number.POSITIVE_INFINITY;
+	const bPosition = sectionPositions.get(b.id) ?? Number.POSITIVE_INFINITY;
 
 	return aPosition - bPosition || a.id.localeCompare(b.id);
 });
@@ -41,14 +41,14 @@ const allArticles = (await getCollection('articles')).sort((a, b) => {
 				margin-top: 1rem;
 			}
 
-			.article-list {
+			.section-list {
 				display: grid;
 				grid-template-columns: repeat(2, minmax(0, 1fr));
 				gap: 2rem;
 			}
 
 			@media (max-width: 48em) {
-				.article-list {
+				.section-list {
 					grid-template-columns: 1fr;
 				}
 			}
@@ -60,8 +60,8 @@ const allArticles = (await getCollection('articles')).sort((a, b) => {
 		<Header />
 		<div class="wrapper">
 			<main class="content">
-				<section class="article-list" aria-label="Article list">
-					{allArticles.map((a) => <ArticlePreview article={a} />)}
+				<section class="section-list" aria-label="Section list">
+					{allSections.map((a) => <SectionPreview section={a} />)}
 				</section>
 			</main>
 		</div>

@@ -1,10 +1,10 @@
 import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
-import { z } from 'astro/zod';
+import { z, ZodType } from 'astro/zod';
 
-const articles = defineCollection({
+const sections = defineCollection({
   loader: glob({
-    base: './src/content/articles',
+    base: './src/content/sections',
     pattern: '**/*.{md,mdx}',
     generateId: ({ entry }) => entry.replace(/\.mdx?$/i, ''),
   }),
@@ -16,4 +16,4 @@ const articles = defineCollection({
   }),
 });
 
-export const collections = { articles };
+export const collections = { sections };
