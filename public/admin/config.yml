@@ -1,4 +1,3 @@
-publish_mode: preview
 backend:
   name: github
   repo: howellcalcifer/horizonting
