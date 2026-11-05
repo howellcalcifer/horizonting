@@ -18,12 +18,12 @@ const { title, pubDate, tips = [] } = Astro.props as Props;
 				<h1 class="title">{title}</h1>
 			</header>
 			<main>
+				<slot />
 				{tips.length > 0 && (
 					<section class="tips" aria-labelledby="tips-heading">
 						{tips.map((tip) => <Tip {tip} />)}
 					</section>
 				)}
-				<slot />
 			</main>
 
 		</div>
@@ -54,10 +54,8 @@ const { title, pubDate, tips = [] } = Astro.props as Props;
 
 	.tips {
 		margin-top: 4rem;
-	}
-
-	.tips :global(.tip + .tip) {
-		margin-top: 2rem;
+		display: grid;
+		gap: 1rem;
 	}
 
 	.content :global(main > * + *) {
