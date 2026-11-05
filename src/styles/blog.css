@@ -84,6 +84,12 @@ body {
 	line-height: 1.625;
 }
 
+@media (max-width: 50em) {
+	body {
+		font-size: 1.0625rem;
+	}
+}
+
 .wrapper {
 	margin-left: auto;
 	margin-right: auto;
