@@ -1,5 +1,5 @@
 ---
-import { type CollectionEntry, render } from 'astro:content';
+import { getEntry, type CollectionEntry, render } from 'astro:content';
 
 interface Props {
 	tip: CollectionEntry<'tips'>;
@@ -7,10 +7,34 @@ interface Props {
 
 const { tip } = Astro.props;
 const { Content } = await render(tip);
+const caseStudyId = tip.data.caseStudy?.trim();
+const caseStudy = caseStudyId
+	? await getEntry('caseStudies', caseStudyId)
+	: undefined;
+
+if (caseStudyId && !caseStudy) {
+	throw new Error(`Tip "${tip.id}" references missing case study "${caseStudyId}"`);
+}
+
+const CaseStudyContent = caseStudy ? (await render(caseStudy)).Content : undefined;
 ---
 
-<article class="tip">
-	<Content />
+<article class:list={['tip', { 'has-case-study': caseStudy && CaseStudyContent }]}>
+	<div class="tip-content">
+		<Content />
+	</div>
+	{caseStudy && CaseStudyContent && (
+		<details class="case-study-disclosure">
+			<summary>
+				<span class="visually-hidden">Show case study for {tip.data.title}</span>
+				<span class="expand-icon" aria-hidden="true"></span>
+			</summary>
+			<div class="case-study">
+				<h3>{caseStudy.data.title}</h3>
+				<CaseStudyContent />
+			</div>
+		</details>
+	)}
 </article>
 
 <style>
@@ -19,5 +43,73 @@ const { Content } = await render(tip);
 		padding: 1.25rem 1.5rem;
 		border-radius: 0.25rem;
 		background: #090d14;
+	}
+
+	.has-case-study {
+		position: relative;
+		padding-right: 3.5rem;
+	}
+
+	.case-study-disclosure summary {
+		position: absolute;
+		top: 1rem;
+		right: 1.25rem;
+		display: grid;
+		width: 1.5rem;
+		height: 1.5rem;
+		place-items: center;
+		cursor: pointer;
+		list-style: none;
+	}
+
+	.case-study-disclosure summary::-webkit-details-marker {
+		display: none;
+	}
+
+	.case-study-disclosure summary:focus-visible {
+		outline: 2px solid var(--theme-accent);
+		outline-offset: 3px;
+		border-radius: 2px;
+	}
+
+	.expand-icon {
+		width: 0.6rem;
+		height: 0.6rem;
+		border-right: 2px solid var(--theme-accent);
+		border-bottom: 2px solid var(--theme-accent);
+		transform: translateY(-0.15rem) rotate(45deg);
+		transition: transform 150ms ease;
+	}
+
+	.case-study-disclosure[open] .expand-icon {
+		transform: translateY(0.15rem) rotate(225deg);
+	}
+
+	.case-study {
+		margin-top: 1.25rem;
+		padding-top: 1rem;
+		border-top: 1px solid var(--theme-divider);
+	}
+
+	.case-study h3 {
+		margin-top: 0;
+	}
+
+	.visually-hidden {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		white-space: nowrap;
+		border: 0;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.expand-icon {
+			transition: none;
+		}
 	}
 </style>
